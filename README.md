@@ -1,66 +1,75 @@
-Material Calendar View
+<img src="/images/ic_launcher-web.png" width="300px" />
+
+Material Calendar View [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Material%20Calendar%20View-blue.svg?style=flat)](https://android-arsenal.com/details/1/1531)
 ======================
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Material%20Calendar%20View-blue.svg?style=flat)](https://android-arsenal.com/details/1/1531)
-
-![Demo Screen Capture](/images/screencast.gif)
-
-A better looking implementation of Android's CalendarView. The goal is to have a more Material look
+A Material design back port of Android's CalendarView. The goal is to have a Material look
 and feel, rather than 100% parity with the platform's implementation.
+
+<img src="/images/screencast.gif" alt="Demo Screen Capture" width="300px" />
 
 Usage
 -----
 
-1. Add `compile 'com.prolificinteractive:material-calendarview:0.2.1'` to your dependencies.
+1. Add `compile 'com.prolificinteractive:material-calendarview:1.1.0'` to your dependencies.
 2. Add `MaterialCalendarView` into your layouts or view hierarchy.
-3. Set a `OnDateChangedListener` or call `MaterialCalendarView.getSelectedDate()` when you need it.
+3. Set a `OnDateSelectedListener` or call `MaterialCalendarView.getSelectedDates()` when you need it.
 
-Customization
--------------
+[Javadoc Available Here](http://prolificinteractive.github.io/material-calendarview/)
 
-One of the aims of this library is to be customizable. Below is an example of custom xml attributes
-available.
+Example:
 
 ```xml
 <com.prolificinteractive.materialcalendarview.MaterialCalendarView
     android:id="@+id/calendarView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:showOtherDates="boolean"
-    app:arrowColor="color"
-    app:selectionColor="color"
-    app:headerTextAppearance="style"
-    app:dateTextAppearance="style"
-    app:weekDayTextAppearance="style"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:mcv_showOtherDates="all"
+    app:mcv_selectionColor="#00F"
     />
 ```
 
-### showOtherDates
+Major Change in 1.0.0
+---------------------
 
-By default, only days of one month are shown. If this is set `true`,
-then days from the previous and next months are used to fill the empty space.
-This also controls showing dates outside of the min-max range.
+With the implementation of multiple selection, some of the apis needed to change to support it,
+namely `OnDateChangedListener` is now `OnDateSelectedListener`. There are also a bunch of new apis
+for multiple selection.
 
-### arrowColor
+Also, `showOtherDates` is now a set of flags for finer control over which extra dates are shown.
 
-Set the color of the arrows used to page the calendar. Black by default.
+Major Change in 0.8.0
+---------------------
 
-### selectionColor
+The view now responds better to layout parameters.
+The functionality is similar to how `adjustViewBounds` works with ImageView,
+where the view will try and take up as much space as necessary,
+but we base it on tile size instead of an aspect ratio.
+The exception being that if a `tileSize` is set,
+that will override everything and set the view to that size.
 
-Set the color of the date selector. By default this is the color set by
-`?android:attr/colorPrimary` on 5.0+ or `?attr/colorPrimary` from the AppCompat library.
+Customization
+-------------
 
-### headerTextAppearance
+One of the aims of this library is to be customizable. The many options include:
 
-Override the text appearance of the month-year indicator at the top.
+* [Define the view's width and height in terms of tile size](docs/CUSTOMIZATION.md#tile-size)
+* [Single or Multiple date selection, or disabling selection entirely](docs/CUSTOMIZATION.md#date-selection)
+* [Showing dates from other months or those out of range](docs/CUSTOMIZATION.md#showing-other-dates)
+* [Setting the first day of the week](docs/CUSTOMIZATION.md#first-day-of-the-week)
+* [Show only a range of dates](docs/CUSTOMIZATION.md#date-ranges)
+* [Customize the top bar](docs/CUSTOMIZATION.md#topbar-options)
+* [Custom labels for the header, weekdays, or individual days](docs/CUSTOMIZATION.md#custom-labels)
 
-### weekDayTextAppearance
+### Events, Highlighting, Custom Selectors, and More!
 
-Override the text appearance of the week day indicators.
+All of this and more can be done via the decorator api. Please check out the [decorator documentation](docs/DECORATORS.md).
 
-### dateTextAppearance
+### Custom Selectors and Colors
 
-Override the text appearance of the dates.
+If you provide custom drawables or colors, you'll want to make sure they respond to state.
+Check out the [documentation for custom states](docs/CUSTOM_SELECTORS.md).
 
 Contributing
 ============
@@ -70,7 +79,7 @@ Would you like to contribute? Fork us and send a pull request! Be sure to checko
 License
 =======
 
->Copyright 2014 Prolific Interactive
+>Copyright 2015 Prolific Interactive
 >
 >Licensed under the Apache License, Version 2.0 (the "License");
 >you may not use this file except in compliance with the License.
