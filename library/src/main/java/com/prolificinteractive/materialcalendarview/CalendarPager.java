@@ -7,19 +7,12 @@ import android.view.MotionEvent;
 /**
  * Custom ViewPager that allows swiping to be disabled.
  */
-class MonthPager extends BetterViewPager {
+class CalendarPager extends BetterViewPager {
 
     private boolean pagingEnabled = true;
 
-    public MonthPager(Context context) {
+    public CalendarPager(Context context) {
         super(context);
-    }
-
-    @Override
-    public void scrollTo(int x, int y) {
-        if (pagingEnabled) {
-            super.scrollTo(x, y);
-        }
     }
 
     /**
@@ -44,7 +37,26 @@ class MonthPager extends BetterViewPager {
     }
 
     @Override
-    public void setPageTransformer(boolean reverseDrawingOrder, PageTransformer transformer) {
-        super.setPageTransformer(reverseDrawingOrder, transformer);
+    public boolean onTouchEvent(MotionEvent ev) {
+        return pagingEnabled && super.onTouchEvent(ev);
     }
+
+    @Override
+    public boolean canScrollVertically(int direction) {
+        /**
+         * disables scrolling vertically when paging disabled, fixes scrolling
+         * for nested {@link android.support.v4.view.ViewPager}
+         */
+        return pagingEnabled && super.canScrollVertically(direction);
+    }
+
+    @Override
+    public boolean canScrollHorizontally(int direction) {
+        /**
+         * disables scrolling horizontally when paging disabled, fixes scrolling
+         * for nested {@link android.support.v4.view.ViewPager}
+         */
+        return pagingEnabled && super.canScrollHorizontally(direction);
+    }
+
 }
