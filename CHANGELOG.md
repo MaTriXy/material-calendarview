@@ -1,6 +1,87 @@
 Change Log
 ==========
 
+Version 2.0.0 *(2018-09-07)*
+----------------------------
+* New: Changed `java.util.Calendar` in favor of `java.time.LocalDate`.
+* New: Api naming for setting the arrows drawable: `setLeftArrow` and `setRightArrow`
+* Fix: Range selection ordering & Issues
+* Fix: Timezone Issues
+* Fix: Now the Month is indexed from 1 to 12 (previously 0-11 due to `java.util` api)
+* Fix: RTL Support
+* Fix: Remove Restored XML Parameters
+* Code Style Reformat
+* Replaced arrows pngs with vectors
+  
+Version 1.6.1 *(2018-07-23)*
+----------------------------
+* New: A new xml parameter for choosing selection mode `app:mcv_selectionMode="single"` with the possible values being none, single, multiple and range. Default mode is still single.
+* Fix: Issue with weekdays not being shown after rotation changes.
+
+Version 1.6.0 *(2018-07-06)*
+----------------------------
+* New: Added api for setting long click listener for cells using `void setOnDateLongClickListener(OnDateLongClickListener longClickListener)`.
+* New: Show and Hide WeekDays row in xml and Programmatically.
+* New: Added api for setting content description formatter `void setDayFormatterContentDescription(DayFormatter formatter)`.
+* New: Apply custom fonts through text appearance styling.
+* Fix: Talkback improvements.
+* Fix: Range mode selection issues.
+
+Version 1.5.0 *(2018-05-15)*
+----------------------------
+* Update: Dependency has now been migrated to Jitpack. Refer to the installation section to install the latest using gradle.
+* Update: Gradle has been updated to the latest.
+
+Version 1.4.3 *(2017-02-21)*
+----------------------------
+* New: Added set click listener method for title
+* New: Added `setSaveCurrentPosition` builder method to use the current position when switching mode
+* Fix: Fixed title update when only year changed
+* Fix: Fixed decorator rendering with custom tile dimensions on API Level 21
+* Fix: Added missing `dynamicHeightEnabled` save in `onSaveInstanceState()`
+* Fix: If we used `match_parent` for the MaterialCalendarView but the size available is not enough, the view was truncated
+
+Version 1.4.2 *(2016-10-10)*
+----------------------------
+* New: match_parent is now supported by tileSize, tileWidth and tileHeight
+* New: api for title animation orientation horizontal/vertical `setTitleAnimationOrientation`
+* Fix: Issue with custom arrow mask being overwritten when set in xml
+* Fix: Issue when clicking date outside of current year would trigger the wrong goToNext or goToPrevious method
+* Fix: WeekDayFormatter would overwritten first day of the week
+
+Version 1.4.0 *(2016-06-01)*
+----------------------------
+* New: Add select range functionality. Use `setSelectionMode(MaterialCalendarView.SELECTION_MODE_RANGE)` and `setOnRangeSelectedListener`
+* Breaking Change: `setFirstDayOfWeek`, `setMin/MaxDate`, and `setCalendarDisplayMode` are moved to a `State` object. Call `mcv.state().edit()` to edit them and commit the changes with `commit`. See [CUSTOMIZATION_BUILDER](docs/CUSTOMIZATION_BUILDER.md) for usage details.
+* Change: Updated documentation regarding 1.3.0 additions
+* Fix: Current month and title pager updates correctly if minDate is set after the current month
+* Fix: Week number difference calculation correctly accounts for DST offsets. Thanks Igor Levaja!
+* Fix: Date formatter uses L instead of M for month (standalone instead of context sensitive)
+
+Version 1.3.0 *(2016-05-16)*
+----------------------------
+
+* New: MCV `goToNext` and `goToPrevious` API to programmatically trigger paging
+* New: Allow users to click on dates outside of current month with `setAllowClickDaysOutsideCurrentMonth`
+* New: Set tile width/height separately rather than single tile size
+* New: Attributes: mcv_tileWidth, mcv_tileHeight, mcv_calendarMode
+* Change: `CalendarMode.WEEK` officially marked `@Experimental`, use with caution
+* Change: `getTileSize` is deprecated, use `getTileWidth` and `getTileHeight`. `setTileSize` still works as a convenience method to set width and height at the same time.
+* Fix: Issue with arrow not enabled when setting maxDate
+* Fix: Issue with number of pages not calculated correctly with maxDate causing last page to be unreachable
+* Fix: TalkBack content descriptions for pager view, forward/back arrows, and ability to set them manually
+* Fix: Crash while in Week mode when `CalendarPagerAdapter#getItemPosition` is called
+* Fix: Calendar Mode is retained on restore instance state
+* Fix: Min/Max date range is retained on restore instance state
+* Issue: Week mode - Restore instance state shows the previous week of the one that was saved
+* Issue: Week mode - Some combinations of first day of week, min/max date can cause the last week not to be pagable
+
+Version 1.2.1 *(2016-05-05)*
+----------------------------
+
+* Fix: Scrolling for nested view pagers
+* Fix: Crash on switching Calendar modes with no days selected
+
 Version 1.2.0 *(2016-01-24)*
 ----------------------------
 
@@ -15,7 +96,7 @@ Version 1.1.0 *(2015-10-19)*
 * New: Ability to disable month swiping with `setPagingEnabled()`
 * Fix [#149](https://github.com/prolificinteractive/material-calendarview/issues/149):
   save selected dates as a typed List instead of an array.
-* Change: Some preformance optimizations
+* Change: Some performance optimizations
 
 Version 1.0.1 *(2015-09-30)*
 ----------------------------
@@ -46,7 +127,7 @@ where the view will try and take up as much space as necessary,
 but we base it on tile size instead of an aspect ratio.
 The exception being that if a `tileSize` is set,
 that will override everything and set the view to that size.
-* Fix: Use more efficent method for indexing months
+* Fix: Use more efficient method for indexing months
 
 Version 0.7.0 *(2015-07-09)*
 ----------------------------

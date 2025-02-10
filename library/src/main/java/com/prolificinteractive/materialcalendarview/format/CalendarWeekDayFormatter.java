@@ -1,41 +1,19 @@
 package com.prolificinteractive.materialcalendarview.format;
 
-import com.prolificinteractive.materialcalendarview.CalendarUtils;
-
-import java.util.Calendar;
 import java.util.Locale;
+import org.threeten.bp.DayOfWeek;
+import org.threeten.bp.format.TextStyle;
 
 /**
- * Use a {@linkplain java.util.Calendar} to get week day labels.
+ * Format the day of the week with using {@link TextStyle#SHORT} by default.
  *
- * @see java.util.Calendar#getDisplayName(int, int, java.util.Locale)
+ * @see java.time.DayOfWeek#getDisplayName(java.time.format.TextStyle, Locale)
  */
-public class CalendarWeekDayFormatter implements WeekDayFormatter {
-
-    private final Calendar calendar;
-
-    /**
-     * Format with a specific calendar
-     *
-     * @param calendar Calendar to retrieve formatting information from
-     */
-    public CalendarWeekDayFormatter(Calendar calendar) {
-        this.calendar = calendar;
-    }
-
-    /**
-     * Format with a default calendar
-     */
-    public CalendarWeekDayFormatter() {
-        this(CalendarUtils.getInstance());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CharSequence format(int dayOfWeek) {
-        calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
-        return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault());
-    }
+public final class CalendarWeekDayFormatter implements WeekDayFormatter {
+  /**
+   * {@inheritDoc}
+   */
+  @Override public CharSequence format(final DayOfWeek dayOfWeek) {
+    return dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault());
+  }
 }
